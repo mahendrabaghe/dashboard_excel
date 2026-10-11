@@ -1,0 +1,43 @@
+Order ID,Date,Region,Category,Product,Customer,Units,Unit Price,Revenue,Discount,Returned
+1001,2024-01-08,North,Electronics,Laptop Pro,C-101,2,1450.00,2900.00,0.05,FALSE
+1002,2024-01-15,South,Furniture,Standing Desk,C-102,1,620.00,620.00,0,FALSE
+1003,2024-01-22,East,Office Supplies,Notebook Pack,C-103,12,8.50,102.00,0,FALSE
+1004,2024-02-03,North,Electronics,Wireless Mouse,C-101,4,29.99,119.96,0.10,FALSE
+1005,2024-02-09,West,Furniture,Office Chair,C-104,3,255.00,765.00,0.05,TRUE
+1006,2024-02-17,South,Electronics,Laptop Pro,C-105,1,1450.00,1450.00,0,FALSE
+1007,2024-02-24,East,Office Supplies,Desk Organizer,C-106,6,18.75,112.50,0,FALSE
+1008,2024-03-04,North,Electronics,Monitor 27in,C-102,2,310.00,620.00,0.02,FALSE
+1009,2024-03-12,West,Furniture,Bookshelf,,2,140.00,280.00,0,FALSE
+1010,2024-03-19,South,Office Supplies,Printer Paper,C-107,20,6.25,125.00,0,FALSE
+1011,2024-03-28,East,Electronics,Wireless Mouse,C-103,10,29.99,299.90,0.15,FALSE
+1012,2024-04-02,North,Furniture,Standing Desk,C-108,2,620.00,1240.00,0.05,FALSE
+1013,2024-04-10,West,Electronics,Laptop Pro,C-109,3,1450.00,4350.00,0.10,FALSE
+1014,2024-04-18,South,Office Supplies,Notebook Pack,C-101,8,8.50,68.00,0,FALSE
+1015,2024-04-25,East,Furniture,Office Chair,C-110,1,255.00,255.00,0,TRUE
+1016,2024-05-06,North,Electronics,Monitor 27in,C-111,4,310.00,1240.00,0.05,FALSE
+1017,2024-05-14,West,Office Supplies,Desk Organizer,C-104,5,18.75,93.75,0,FALSE
+1018,2024-05-21,South,Furniture,Bookshelf,C-112,2,140.00,280.00,0,FALSE
+1019,2024-05-30,East,Electronics,Laptop Pro,C-113,2,1450.00,2900.00,0.08,FALSE
+1020,2024-06-07,North,Office Supplies,Printer Paper,C-114,30,6.25,187.50,0.05,FALSE
+1021,2024-06-15,West,Electronics,Wireless Mouse,C-115,6,29.99,179.94,0,FALSE
+1022,2024-06-23,South,Furniture,Standing Desk,C-116,1,620.00,620.00,0,FALSE
+1023,2024-07-02,East,Electronics,Monitor 27in,C-117,3,310.00,930.00,0.02,FALSE
+1024,2024-07-11,North,Furniture,Office Chair,C-118,4,255.00,1020.00,0.10,FALSE
+1025,2024-07-19,West,Office Supplies,Notebook Pack,C-119,15,8.50,127.50,0,FALSE
+1026,2024-08-05,South,Electronics,Laptop Pro,C-120,2,1450.00,2900.00,0.05,TRUE
+1027,2024-08-13,East,Furniture,Bookshelf,C-121,3,140.00,420.00,0,FALSE
+1028,2024-08-22,North,Electronics,Wireless Mouse,C-122,8,29.99,239.92,0.10,FALSE
+1029,2024-09-03,West,Electronics,Monitor 27in,C-123,5,310.00,1550.00,0.05,FALSE
+1030,2024-09-12,South,Office Supplies,Desk Organizer,C-124,10,18.75,187.50,0,FALSE
+1031,2024-09-21,East,Furniture,Standing Desk,C-125,2,620.00,1240.00,0.05,FALSE
+1032,2024-10-01,North,Electronics,Laptop Pro,C-126,1,1450.00,1450.00,0,FALSE
+1033,2024-10-09,West,Furniture,Office Chair,C-127,6,255.00,1530.00,0.12,FALSE
+1034,2024-10-18,South,Electronics,Monitor 27in,C-128,4,310.00,1240.00,0.05,FALSE
+1035,2024-10-27,East,Office Supplies,Printer Paper,C-129,40,6.25,250.00,0.10,FALSE
+1036,2024-11-04,North,Electronics,Laptop Pro,C-130,3,1450.00,4350.00,0.10,FALSE
+1037,2024-11-13,West,Office Supplies,Notebook Pack,C-131,25,8.50,212.50,0,FALSE
+1038,2024-11-22,South,Furniture,Standing Desk,C-132,2,620.00,1240.00,0.05,FALSE
+1039,2024-12-02,East,Electronics,Wireless Mouse,C-133,12,29.99,359.88,0.15,FALSE
+1040,2024-12-10,North,Electronics,Laptop Pro,C-134,5,1450.00,7250.00,0.20,FALSE
+1041,2024-12-18,West,Furniture,Bookshelf,C-135,4,140.00,560.00,0,FALSE
+1042,2024-12-27,South,Office Supplies,Desk Organizer,C-136,,18.75,,0,FALSE

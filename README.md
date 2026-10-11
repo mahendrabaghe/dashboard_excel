@@ -31,37 +31,37 @@ DataPulse is designed for analytical datasets of this size. It is not a warehous
 
 ```
 dashb 2/
-├── client/                    React + Vite SPA (deploy: Render Static Site)
-│   └── src/
-│       ├── components/        ui (shadcn-style primitives), charts, filters, dashboard
-│       ├── pages/             Auth, Overview, Datasets, Upload, Explorer, Charts,
-│       │                      Dashboards, DashboardBuilder, Insights, Reports, Settings
-│       ├── layouts/           AppLayout (collapsible sidebar, top bar with search)
-│       ├── hooks/             useWorkingDataset (load + undo/redo + persistence), useFilteredRows
-│       ├── services/          api (fetch + upload progress), fileParser (browser preview), exporters
-│       ├── utils/             transforms (cleaning op log), filters, analytics, recommend, insights
-│       ├── context/           Auth, Theme, Toast
-│       └── styles/            Tailwind layers and print styles
-└── server/                    Express API (deploy: Render Web Service)
-    ├── config/                env validation, MongoDB connection
-    ├── models/                User, Dataset, DatasetChunk, DatasetTransformation, Dashboard, Report
-    ├── routes/                /api routes (auth-guarded)
-    ├── controllers/           request handlers (ownership enforced in every query)
-    ├── middleware/            auth (JWT), validate (zod), upload (multer, type+size), error handler
-    ├── services/              fileParser (CSV/XLSX), datasetService (import, cascade delete)
-    ├── utils/                 ApiError, logger, zod schemas
-    ├── shared/                data normaliser + expression engine (shared with client)
-    └── server.js              app bootstrap, security headers, CORS, rate limits, health checks
+â”œâ”€â”€ client/                    React + Vite SPA (deploy: Render Static Site)
+â”‚   â””â”€â”€ src/
+â”‚       â”œâ”€â”€ components/        ui (shadcn-style primitives), charts, filters, dashboard
+â”‚       â”œâ”€â”€ pages/             Auth, Overview, Datasets, Upload, Explorer, Charts,
+â”‚       â”‚                      Dashboards, DashboardBuilder, Insights, Reports, Settings
+â”‚       â”œâ”€â”€ layouts/           AppLayout (collapsible sidebar, top bar with search)
+â”‚       â”œâ”€â”€ hooks/             useWorkingDataset (load + undo/redo + persistence), useFilteredRows
+â”‚       â”œâ”€â”€ services/          api (fetch + upload progress), fileParser (browser preview), exporters
+â”‚       â”œâ”€â”€ utils/             transforms (cleaning op log), filters, analytics, recommend, insights
+â”‚       â”œâ”€â”€ context/           Auth, Theme, Toast
+â”‚       â””â”€â”€ styles/            Tailwind layers and print styles
+â””â”€â”€ server/                    Express API (deploy: Render Web Service)
+    â”œâ”€â”€ config/                env validation, MongoDB connection
+    â”œâ”€â”€ models/                User, Dataset, DatasetChunk, DatasetTransformation, Dashboard, Report
+    â”œâ”€â”€ routes/                /api routes (auth-guarded)
+    â”œâ”€â”€ controllers/           request handlers (ownership enforced in every query)
+    â”œâ”€â”€ middleware/            auth (JWT), validate (zod), upload (multer, type+size), error handler
+    â”œâ”€â”€ services/              fileParser (CSV/XLSX), datasetService (import, cascade delete)
+    â”œâ”€â”€ utils/                 ApiError, logger, zod schemas
+    â”œâ”€â”€ shared/                data normaliser + expression engine (shared with client)
+    â””â”€â”€ server.js              app bootstrap, security headers, CORS, rate limits, health checks
 ```
 
 ### Data model
 
-- **User** – name, email (unique), `passwordHash` (never returned), preferences.
-- **Dataset** – owner, name, source metadata (original file name, extension, size, sheet names), column schema (`key`, `name`, `type`, `missing`, `unique`), row/column counts, processing info and warnings.
-- **DatasetChunk** – raw rows of a dataset in chunks of 1,000 (keeps every document far below MongoDB's 16 MB limit). Raw rows are never modified.
-- **DatasetTransformation** – ordered cleaning log (`sequence`, `operation`, `params`). The working table is the raw chunks replayed through this log, so undo/reset never destroys the original import.
-- **Dashboard** – owner, dataset, name, global filters, theme, widgets (`type`, `title`, `config`, `layout` on a 12-column grid).
-- **Report** – owner, dataset, optional dashboard, title, summary, frozen snapshot.
+- **User** â€“ name, email (unique), `passwordHash` (never returned), preferences.
+- **Dataset** â€“ owner, name, source metadata (original file name, extension, size, sheet names), column schema (`key`, `name`, `type`, `missing`, `unique`), row/column counts, processing info and warnings.
+- **DatasetChunk** â€“ raw rows of a dataset in chunks of 1,000 (keeps every document far below MongoDB's 16 MB limit). Raw rows are never modified.
+- **DatasetTransformation** â€“ ordered cleaning log (`sequence`, `operation`, `params`). The working table is the raw chunks replayed through this log, so undo/reset never destroys the original import.
+- **Dashboard** â€“ owner, dataset, name, global filters, theme, widgets (`type`, `title`, `config`, `layout` on a 12-column grid).
+- **Report** â€“ owner, dataset, optional dashboard, title, summary, frozen snapshot.
 
 Every query filters by `owner` taken from the verified JWT. A record that belongs to another user returns **404**, not 403, so the existence of other users' data is not revealed.
 
@@ -102,17 +102,17 @@ Open http://localhost:5173, create an account, and upload a file. A sample file 
 
 Health checks:
 
-- `GET http://localhost:5000/healthz` – returns `200` when MongoDB is connected
-- `GET http://localhost:5000/api/health` – liveness only
+- `GET http://localhost:5000/healthz` â€“ returns `200` when MongoDB is connected
+- `GET http://localhost:5000/api/health` â€“ liveness only
 
 ## MongoDB Atlas setup
 
 1. **Create a cluster.** In Atlas, create a free M0 cluster in a region close to your Render region.
-2. **Create a database user.** *Database Access → Add New Database User → Password*. Grant **Read and write to any database** only if you need it; preferably restrict it to the `datapulse` database. Use a strong generated password.
-3. **Network access.** *Network Access → Add IP Address*:
+2. **Create a database user.** *Database Access â†’ Add New Database User â†’ Password*. Grant **Read and write to any database** only if you need it; preferably restrict it to the `datapulse` database. Use a strong generated password.
+3. **Network access.** *Network Access â†’ Add IP Address*:
    - For Render, Render does not publish fixed outbound IPs on the free plan. Either add `0.0.0.0/0` and rely on the strong database password plus TLS (the pragmatic choice for free tiers), or use a paid Render plan with static outbound IPs and allow only those addresses.
    - For local development, add your own public IP.
-4. **Get the connection string.** *Connect → Drivers → Node.js*. Replace `<password>` with the user's password (URL-encode special characters) and set the database name to `datapulse`:
+4. **Get the connection string.** *Connect â†’ Drivers â†’ Node.js*. Replace `<password>` with the user's password (URL-encode special characters) and set the database name to `datapulse`:
    ```
    mongodb+srv://<user>:<password>@<cluster>.mongodb.net/datapulse?retryWrites=true&w=majority
    ```
@@ -120,7 +120,7 @@ Health checks:
 
 ## Environment variables
 
-### Server (`server/.env`, or Render → Environment)
+### Server (`server/.env`, or Render â†’ Environment)
 
 | Variable | Required | Description |
 | --- | --- | --- |
@@ -134,7 +134,7 @@ Health checks:
 | `OPENAI_MODEL` | no | Default `gpt-4o-mini` |
 | `LOG_LEVEL` | no | `error`, `warn`, `info` (default) or `debug` |
 
-### Client (`client/.env.local`, or Render → Static Site → Environment)
+### Client (`client/.env.local`, or Render â†’ Static Site â†’ Environment)
 
 | Variable | Description |
 | --- | --- |
@@ -148,18 +148,15 @@ node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"
 
 ## Pushing to GitHub
 
+Repository: https://github.com/mahendrabaghe/dashboard_excel
+
 ```bash
-cd "dashb 2"
-git init
-git add .
-git status            # confirm no .env or node_modules files are listed
-git commit -m "Initial commit: DataPulse analytics dashboard"
-git branch -M main
-git remote add origin https://github.com/<you>/datapulse.git
-git push -u origin main
+git clone https://github.com/mahendrabaghe/dashboard_excel.git
+cd dashboard_excel
+git status            # confirm no .env, *.ev or node_modules files are listed
 ```
 
-`.gitignore` excludes `node_modules/`, `.env*` (except `.env.example`), build output and logs.
+`.gitignore` excludes `node_modules/`, `.env*` (except `.env.example`), `*.ev`, build output and logs. Never commit real credentials.
 
 ## Deployment on Render
 
@@ -167,9 +164,9 @@ You can deploy with the included `render.yaml` Blueprint, or create the two serv
 
 ### 1. Backend: Web Service
 
-1. Render → **New → Web Service** → connect your GitHub repo.
+1. Render â†’ **New â†’ Web Service** â†’ connect your GitHub repo.
 2. **Root directory:** `server`
-3. **Runtime:** Node · **Build command:** `npm ci --omit=dev` · **Start command:** `npm start`
+3. **Runtime:** Node Â· **Build command:** `npm ci --omit=dev` Â· **Start command:** `npm start`
 4. **Health check path:** `/healthz`
 5. **Environment variables:**
    - `NODE_ENV` = `production`
@@ -181,11 +178,11 @@ You can deploy with the included `render.yaml` Blueprint, or create the two serv
 
 ### 2. Frontend: Static Site
 
-1. Render → **New → Static Site** → same repo.
+1. Render â†’ **New â†’ Static Site** â†’ same repo.
 2. **Root directory:** `client`
-3. **Build command:** `npm ci && npm run build` · **Publish directory:** `dist`
+3. **Build command:** `npm ci && npm run build` Â· **Publish directory:** `dist`
 4. **Environment variable:** `VITE_API_BASE_URL` = `https://<api>.onrender.com/api`
-5. **Redirects/Rewrites:** source `/*` → destination `/index.html` (action: *Rewrite*). This is required so that deep links such as `/app/explorer/...` work on refresh.
+5. **Redirects/Rewrites:** source `/*` â†’ destination `/index.html` (action: *Rewrite*). This is required so that deep links such as `/app/explorer/...` work on refresh.
 6. Deploy, then set the static site URL as `CLIENT_ORIGINS` on the API service and redeploy the API.
 
 > `VITE_*` values are embedded into the built JavaScript at build time. If you change `VITE_API_BASE_URL`, trigger a new static-site deploy.
@@ -206,11 +203,11 @@ You can deploy with the included `render.yaml` Blueprint, or create the two serv
 
 ## Troubleshooting
 
-- **`Missing required environment variable: MONGODB_URI`** – the server did not find `server/.env` or the Render variable is empty.
-- **`MongoServerSelectionError` / connection timeout** – Atlas Network Access does not allow the caller's IP, or the password in the URI was not URL-encoded.
-- **CORS error in browser** – `CLIENT_ORIGINS` does not include the exact frontend origin.
-- **401 after a while** – the JWT expired (default 7 days). Sign in again.
-- **Upload rejected: "File is larger than the 10 MB limit"** – split the file or remove unused columns and rows.
+- **`Missing required environment variable: MONGODB_URI`** â€“ the server did not find `server/.env` or the Render variable is empty.
+- **`MongoServerSelectionError` / connection timeout** â€“ Atlas Network Access does not allow the caller's IP, or the password in the URI was not URL-encoded.
+- **CORS error in browser** â€“ `CLIENT_ORIGINS` does not include the exact frontend origin.
+- **401 after a while** â€“ the JWT expired (default 7 days). Sign in again.
+- **Upload rejected: "File is larger than the 10 MB limit"** â€“ split the file or remove unused columns and rows.
 
 ## Known limitations
 
@@ -218,5 +215,3 @@ You can deploy with the included `render.yaml` Blueprint, or create the two serv
 - Files are parsed in memory and are not kept as originals; only the normalised rows are stored.
 - The AI answer path requires an OpenAI-compatible key; without it, answers come from local statistics.
 - PDF export uses the browser's print dialog ("Save as PDF").
-#   d a s h b o a r d _ e x c e l  
- 
